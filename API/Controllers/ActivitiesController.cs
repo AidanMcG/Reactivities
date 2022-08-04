@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Activities;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace API.Controllers
 {
+    [AllowAnonymous]
     public class ActivitiesController : BaseAPIController
     {
         [HttpGet]
