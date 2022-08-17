@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Profiles;
 
 namespace Domain
 {
-    public class Activity
+    public class ActivityDto
     {
         public Guid Id { get; set; }
 
@@ -21,8 +22,8 @@ namespace Domain
         public string City { get; set; }
 
         public string Venue { get; set; }
+        public string HostUsername { get; set; }
         public bool isCancelled { get; set; }
-        public ICollection<ActivityAttendee> Attendees {get; set;} = new List<ActivityAttendee>();
-        
+        public ICollection<Profile> Attendees { get; set;}
     }
 }
