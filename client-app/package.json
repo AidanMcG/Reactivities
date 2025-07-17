@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.1",
     "@types/node": "^16.11.36",
-    "@types/react": "^17.0.45",
+    "@types/react": "^18.2.0",
     "@types/react-calendar": "^3.5.1",
     "@types/react-dom": "^18.0.5",
     "@types/react-router-dom": "^5.3.3",
@@ -37,7 +37,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "patch-package" 
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +61,8 @@
   "devDependencies": {
     "@types/react-datepicker": "^4.4.2",
     "@types/uuid": "^8.3.4",
-    "@types/yup": "^0.29.14"
+    "@types/yup": "^0.29.14",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0"
   }
 }
