@@ -8,6 +8,7 @@ export interface Activity {
     category: string;
     city: string;
     venue: string;
+    numberOfPlayers: number;
     hostUsername: string;
     isCancelled: boolean;
     isGoing: boolean;
@@ -30,6 +31,7 @@ export interface Activity {
     date: Date | null = null;
     city: string = '';
     venue: string = '';
+    numberOfPlayers?: number = 0;
     
     constructor(activity?: ActivityFormValues){
       if (activity) {
@@ -40,6 +42,7 @@ export interface Activity {
         this.date = activity.date;
         this.venue = activity.venue;
         this.city = activity.city;
+        this.numberOfPlayers = activity.numberOfPlayers;
       }
     }
   }

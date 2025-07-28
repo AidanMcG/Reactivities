@@ -49,6 +49,7 @@ export default function ActivityListItem({activity}: Props) {
                 <span>
                     <Icon name='clock' /> {format(activity.date!, 'dd MMM yyyy h:mm aa')}
                     <Icon name='marker' /> {activity.venue}
+                    <Icon name='users' /> { activity.attendees.length.toString() + '/' + activity.numberOfPlayers.toString()}
                 </span>
             </Segment>
             <Segment secondary>
@@ -61,7 +62,7 @@ export default function ActivityListItem({activity}: Props) {
                     to={`/activities/${activity.id}`}
                     color='teal'
                     floated='right'
-                    content='view'
+                    content='View'
                 />
             </Segment>
         </Segment.Group>

@@ -1,26 +1,39 @@
 import { useField } from 'formik';
 import React from 'react';
-import { Form, Label, Select } from 'semantic-ui-react';
+import { Form, Label, Select, DropdownProps} from 'semantic-ui-react';
+import { MySelectOption } from '../../../App/Common/Types/MySelectTypes';
+
 
 interface Props {
     placeholder: string;
     name: string;
-    options: any;
+    options: MySelectOption[];
     label?: string;
+    disabled?: boolean;
+    onChange?: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void;
 }
 
 export default function MySelectInput(props: Props) {
-    const [field, meta, helpers] = useField(props.name);
+    const { name, options, placeholder, label, onChange, disabled, ...rest } = props;
+    const [field, meta, helpers] = useField(name);
     return (
         <Form.Field error={meta.touched && !!meta.error}>
-            <label>{props.label}</label>
+            <label>{label}</label>
             <Select
                 clearable
-                options={props.options}
+                options={options}
                 value={field.value || null}
-                onChange={(e, d) => helpers.setValue(d.value)}
+                onChange={(e, d) => {
+                    helpers.setValue(d.value);
+                    if (onChange){
+                        onChange(e, d);
+                    }    
+                }
+                }
                 onBlur={()=> helpers.setTouched(true)}
-                placeholder={props.placeholder}
+                placeholder={placeholder}
+                disabled = {disabled}
+                {...rest}
             />
             {meta.touched && meta.error ? (
                 <Label basic color='red' >{meta.error}</Label>
