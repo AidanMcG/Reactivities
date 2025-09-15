@@ -17,12 +17,16 @@ namespace Persistence
         }
 
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<FootballActivity> FootballActivities { get; set; }
         public DbSet<ActivityAttendee> ActivityAttendees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //builder.Entity<IdentityUser>().ToTable("AspNetUsers");
             base.OnModelCreating(builder);
+
+
+            builder.Entity<FootballActivity>().HasBaseType<Activity>().ToTable("FootballActivities"); 
 
             builder.Entity<ActivityAttendee>(x => x.HasKey(aa => new {aa.AppUserId, aa.ActivityId}));
 
@@ -32,8 +36,8 @@ namespace Persistence
                 .HasForeignKey(aa => aa.AppUserId);
 
             builder.Entity<ActivityAttendee>()
-                .HasOne(u => u.Activity)
-                .WithMany(a => a.Attendees)
+                .HasOne(a => a.Activity)
+                .WithMany(u => u.Attendees)
                 .HasForeignKey(aa => aa.ActivityId);
         }
     }

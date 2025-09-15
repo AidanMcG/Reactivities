@@ -38,7 +38,7 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("NumberOfPlayers")
+                    b.Property<int?>("NumberOfPlayers")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
@@ -273,6 +273,13 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.FootballActivity", b =>
+                {
+                    b.HasBaseType("Domain.Activity");
+
+                    b.ToTable("FootballActivities", (string)null);
+                });
+
             modelBuilder.Entity("Domain.ActivityAttendee", b =>
                 {
                     b.HasOne("Domain.Activity", "Activity")
@@ -339,6 +346,15 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.FootballActivity", b =>
+                {
+                    b.HasOne("Domain.Activity", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.FootballActivity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

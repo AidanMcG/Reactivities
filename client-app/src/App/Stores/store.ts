@@ -3,16 +3,19 @@ import ActivityStore from "./activityStore";
 import CommonStore from "./commonStore";
 import ModalStore from "./modalStore";
 import UserStore from "./userStore";
+import FootballActivityStore from "./ActivityStores/FootballActivityStore";
 
 interface Store {
     activityStore: ActivityStore;
     commonStore: CommonStore;
     userStore: UserStore
     modalStore: ModalStore;
+    footballActivityStore: FootballActivityStore;
 }
 
 export const store: Store = {
     activityStore: new ActivityStore(),
+    footballActivityStore: new FootballActivityStore(),
     commonStore: new CommonStore(),
     userStore: new UserStore(),
     modalStore: new ModalStore()

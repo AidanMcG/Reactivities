@@ -4,6 +4,7 @@ import { history } from '../..';
 import { Activity, ActivityFormValues } from '../models/activity';
 import { User, UserFormValues } from '../models/user';
 import { store } from '../Stores/store';
+import { FootballActivity, FootballActivityFormValues } from '../models/footballActivity';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -74,6 +75,15 @@ const Activities ={
     attend: (id: string) => requests.post<void>(`/activities/${id}/attend`,{})
 }
 
+const FootballActivities = {
+    list: () => requests.get<FootballActivity[]>('/footballactivities'),
+    details: (id: string) => requests.get<FootballActivity>(`/footballactivities/${id}`),
+    create: (activity: FootballActivityFormValues) => requests.post<void>('/footballactivities', activity),
+    update: (activity: FootballActivityFormValues) => requests.put<void>(`/footballactivities/${activity.id}`, activity),
+    delete: (id: string) => requests.del<void>(`/footballactivities/${id}`),
+    attend: (id: string) => requests.post<void>(`/footballactivities/${id}/attend`, {})
+}
+
 const Account = {
     current: () => requests.get<User>('/account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
@@ -82,6 +92,7 @@ const Account = {
 
 const agent = {
     Activities,
+    FootballActivities,
     Account
 }
 

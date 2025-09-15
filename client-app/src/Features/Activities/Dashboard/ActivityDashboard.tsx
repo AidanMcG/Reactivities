@@ -21,14 +21,16 @@ export default observer(function ActivityDashboard() {
 
     return (
         <Grid>
-            <Grid.Column width='6'>
-                <ActivityFilters />
+            <Grid.Column width='12'>
+                <div style= {{marginLeft: '1em', marginRight: '1em'}}>
+                    <ActivityList/>
+                </div>
             </Grid.Column>
-            <Grid.Column>
-                SUI
-            </Grid.Column>
-            <Grid.Column width='9'>
-                <ActivityList/>
+            <Grid.Column width='4'>
+                
+                <div style= {{marginLeft: '1em', marginRight: '1em'}}>
+                    <ActivityFilters />
+                </div>
             </Grid.Column>
         </Grid>
     )

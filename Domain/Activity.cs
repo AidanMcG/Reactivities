@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Activity
+    public abstract class Activity
     {
         public Guid Id { get; set; }
 
@@ -22,10 +22,12 @@ namespace Domain
 
         public string Venue { get; set; }
 
-        public int NumberOfPlayers { get; set; }
-        
+        public int? NumberOfPlayers { get; set; }
+
         public bool isCancelled { get; set; }
-        public ICollection<ActivityAttendee> Attendees {get; set;} = new List<ActivityAttendee>();
-        
+        public ICollection<ActivityAttendee> Attendees { get; set; } = new List<ActivityAttendee>();
+
+
+        public abstract List<int> GetPlayerNumberOptions();
     }
 }

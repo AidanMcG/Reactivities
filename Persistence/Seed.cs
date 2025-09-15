@@ -41,9 +41,9 @@ namespace Persistence
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
 
-                var activities = new List<Activity>
+                var activities = new List<GolfActivity>
                 {
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Past Activity 1",
                         Date = DateTime.Now.AddMonths(-2),
@@ -60,7 +60,7 @@ namespace Persistence
                             }
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Past Activity 2",
                         Date = DateTime.Now.AddMonths(-1),
@@ -82,7 +82,7 @@ namespace Persistence
                             },
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Future Activity 1",
                         Date = DateTime.Now.AddMonths(1),
@@ -104,7 +104,7 @@ namespace Persistence
                             },
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Future Activity 2",
                         Date = DateTime.Now.AddMonths(2),
@@ -126,7 +126,7 @@ namespace Persistence
                             },
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Future Activity 3",
                         Date = DateTime.Now.AddMonths(3),
@@ -148,7 +148,7 @@ namespace Persistence
                             },
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Future Activity 4",
                         Date = DateTime.Now.AddMonths(4),
@@ -165,7 +165,7 @@ namespace Persistence
                             }
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Future Activity 5",
                         Date = DateTime.Now.AddMonths(5),
@@ -187,7 +187,7 @@ namespace Persistence
                             },
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Future Activity 6",
                         Date = DateTime.Now.AddMonths(6),
@@ -209,7 +209,7 @@ namespace Persistence
                             },
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Future Activity 7",
                         Date = DateTime.Now.AddMonths(7),
@@ -231,7 +231,7 @@ namespace Persistence
                             },
                         }
                     },
-                    new Activity
+                    new GolfActivity
                     {
                         Title = "Future Activity 8",
                         Date = DateTime.Now.AddMonths(8),

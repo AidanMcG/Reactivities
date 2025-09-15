@@ -67,6 +67,13 @@ export default class ActivityStore {
         }
     }
 
+    playerOptions = async(id: string) => {
+        let activity = this.getActivity(id);
+        if (activity){
+            return 1;
+        }
+    }
+
     private setActivity = (activity: Activity) => {
         const user = store.userStore.user;
         if (user){

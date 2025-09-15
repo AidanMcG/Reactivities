@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { Fragment } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import { useStore } from '../../../App/Stores/store';
 import ActivityListItem from './ActivityListItem';
 
@@ -18,9 +18,13 @@ export default observer(function ActivityList() {
                     <Header sub color='teal'>
                         {group}
                     </Header>
+                    <Grid>
                         {activities.map(activity => (
-                            <ActivityListItem key={activity.id} activity={activity}/>
+                            <Grid.Column width={5} key={activity.id}>
+                                <ActivityListItem activity={activity}/>
+                            </Grid.Column>
                         ))}
+                    </Grid>
                 </Fragment>
             ))}
         </>

@@ -11,8 +11,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220817111208_AddCancelledProperty")]
-    partial class AddCancelledProperty
+    [Migration("20250912153225_MakePlayersNullable")]
+    partial class MakePlayersNullable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,9 @@ namespace Persistence.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("NumberOfPlayers")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -272,6 +275,13 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.FootballActivity", b =>
+                {
+                    b.HasBaseType("Domain.Activity");
+
+                    b.ToTable("FootballActivities", (string)null);
+                });
+
             modelBuilder.Entity("Domain.ActivityAttendee", b =>
                 {
                     b.HasOne("Domain.Activity", "Activity")
@@ -338,6 +348,15 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.FootballActivity", b =>
+                {
+                    b.HasOne("Domain.Activity", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.FootballActivity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
