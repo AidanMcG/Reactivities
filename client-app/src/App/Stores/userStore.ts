@@ -6,6 +6,7 @@ import { store } from "./store";
 
 export default class UserStore {
     user: User | null = null;
+    loadingInitial = false;
     
     constructor() {
         makeAutoObservable(this)
@@ -36,12 +37,28 @@ export default class UserStore {
     }
 
     getUser = async () => {
+        this.loadingInitial = true;
         try {
             const user = await agent.Account.current();
             runInAction(() => this.user = user);
+            this.setLoadingInitial(false);
         }
         catch (error) {
             console.log(error);
+            this.setLoadingInitial(false);
+        }
+    }
+
+    getUserByUsername = async (username: string) => {
+        this.loadingInitial = true;
+        try {
+            const user = await agent.Account.getUserByUsername(username);
+            runInAction(() => this.user = user);
+            this.setLoadingInitial(false);
+        }
+        catch (error) {
+            console.log(error);
+            this.setLoadingInitial(false);
         }
     }
 
@@ -56,6 +73,10 @@ export default class UserStore {
         catch (error) {
             throw error;
         }
+    }
+
+    setLoadingInitial = (state: boolean) => {
+        this.loadingInitial = state;
     }
     
 }

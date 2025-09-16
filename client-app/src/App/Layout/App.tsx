@@ -15,6 +15,9 @@ import LoginForm from '../../Features/Users/LoginForm';
 import { useStore } from '../Stores/store';
 import LoadingComponent from './LoadingComponents';
 import ModalContainer from '../Common/Modals/ModalContainer';
+import { Profile } from '../models/profile';
+import ProfileCard from '../../Features/Profiles/ProfileCard';
+import ProfilePage from '../../Features/Profiles/ProfilePage';
 
 
 function App() {
@@ -49,6 +52,7 @@ function App() {
                 <Route path='/errors' component={TestErrors}/>
                 <Route path='/server-error' component={ServerError}/>
                 <Route path='/login' component={LoginForm}/>
+                <Route path='/profile/:username' component={ProfilePage}/>
                 <Route component={NotFound}/>
               </Switch>
               </Container>

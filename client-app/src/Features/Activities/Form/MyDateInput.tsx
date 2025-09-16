@@ -8,6 +8,7 @@ export default function MyDateInput(props: Partial<ReactDatePickerProps>) {
     return (
         <Form.Field error={meta.touched && !!meta.error}>
             <DatePicker
+            className='ui input'
                 {...field}
                 {...props}
                 selected={(field.value && new Date(field.value) )|| null}

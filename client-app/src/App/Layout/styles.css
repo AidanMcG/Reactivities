@@ -3,7 +3,7 @@ body {
 }
 
 .ui.inverted.top.fixed.menu {
-  background-image: linear-gradient(135deg,rgb(24,42,115) 0%, rgb(32,167,172) 89%) !important;
+  background-image: linear-gradient(135deg,rgb(187, 165, 103) 0%, rgba(255, 225, 179, 0.623) 89%) !important;
 }
 
 .react-calendar {
@@ -16,6 +16,166 @@ body {
   width: 100%;
 }
 
+/*React Caelendar*/
+.react-calendar {
+  width: 100%; /* Make the calendar fill its container */
+  max-width: 350px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+  padding: 1rem;
+}
+
+/* Hide the default button outlines on focus */
+.react-calendar button:focus {
+  outline: none;
+}
+
+/* ==================================== */
+/* 2. Navigation Header (Month, Year, etc.) */
+/* ==================================== */
+.react-calendar__navigation {
+  display: flex;
+  height: 44px;
+  margin-bottom: 1em;
+}
+
+/* Style the navigation buttons */
+.react-calendar__navigation button {
+  min-width: 44px;
+  background: none;
+  border: none;
+  color: #333333;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* Hover and active states for navigation buttons */
+.react-calendar__navigation button:hover,
+.react-calendar__navigation button:disabled:hover {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.react-calendar__navigation button:active {
+  background-color: #e6e6e6;
+}
+
+.react-calendar__navigation__label {
+  flex-grow: 1;
+  text-align: center;
+}
+
+/* Disable the next/previous navigation on hover */
+.react-calendar__navigation button:disabled {
+  background-color: transparent;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ==================================== */
+/* 3. Day, Week, and Month Views */
+/* ==================================== */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #888888;
+  margin-bottom: 0.5em;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+
+.react-calendar__tile {
+  background: none;
+  border: none;
+  text-align: center;
+  line-height: 1;
+  padding: 0.8em 0;
+  position: relative;
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover effect for day tiles */
+.react-calendar__tile:enabled:hover {
+  background-color: #e6f0f8;
+  border-radius: 50%;
+}
+
+/* Style for today's date */
+.react-calendar__tile--now {
+  background-color: #a3d9ff;
+  font-weight: bold;
+}
+
+/* Style for selected dates */
+.react-calendar__tile--active {
+  background-color: #007bff;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Hover effect on active tiles */
+.react-calendar__tile--active:enabled:hover {
+  background-color: #0056b3;
+}
+
+/* Style for dates in a date range selection */
+.react-calendar__tile--range {
+  background-color: #b3d4f8;
+  color: #000000;
+  border-radius: 0;
+}
+
+/* Make selected start and end dates more prominent in a range */
+.react-calendar__tile--range.react-calendar__tile--active {
+  border-radius: 50%;
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+/* Style for dates from adjacent months */
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #b0b0b0;
+}
+
+/* ==================================== */
+/* 4. Other Views (Year, Decade, Century) */
+/* ==================================== */
+.react-calendar__year-view__months,
+.react-calendar__decade-view__years,
+.react-calendar__century-view__decades {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em;
+}
+
+.react-calendar__tile--hasActive,
+.react-calendar__tile--hasActive:enabled:hover {
+  background: #c7e0f8;
+}
+
+/* Make tiles in other views look like buttons */
+.react-calendar__year-view__months__month,
+.react-calendar__decade-view__years__year,
+.react-calendar__century-view__decades__decade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 1.1em;
+  border-radius: 4px;
+}
+
+
+
 /*home page styles*/
 
 .masthead {
@@ -23,9 +183,9 @@ body {
   align-items: center;
   background-image: linear-gradient(
           135deg,
-          rgb(24, 42, 115) 0%,
-          rgb(33, 138, 174) 69%,
-          rgb(32, 167, 172) 89%
+          rgb(185, 161, 129) 0%,
+          rgb(197, 157, 63) 69%,
+          rgb(219, 130, 27) 89%
   ) !important;
   height: 100vh;
 }

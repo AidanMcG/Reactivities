@@ -20,7 +20,7 @@ export default observer(function ActivityList() {
                     </Header>
                     <Grid>
                         {activities.map(activity => (
-                            <Grid.Column width={5} key={activity.id}>
+                            <Grid.Column width={8} key={activity.id}>
                                 <ActivityListItem activity={activity}/>
                             </Grid.Column>
                         ))}

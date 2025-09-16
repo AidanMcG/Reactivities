@@ -21,12 +21,12 @@ export default observer(function ActivityDashboard() {
 
     return (
         <Grid>
-            <Grid.Column width='12'>
+            <Grid.Column width='11'>
                 <div style= {{marginLeft: '1em', marginRight: '1em'}}>
                     <ActivityList/>
                 </div>
             </Grid.Column>
-            <Grid.Column width='4'>
+            <Grid.Column width='5'>
                 
                 <div style= {{marginLeft: '1em', marginRight: '1em'}}>
                     <ActivityFilters />
