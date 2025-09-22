@@ -96,7 +96,26 @@ namespace API.Controllers
             {
                 DisplayName = user.DisplayName,
                 Image = null,
-                Token = _tokenService.CreateToken(user),
+                Token = "",
+                Username = user.UserName
+            };
+        }
+
+        [Authorize]
+        [HttpGet("id/{userId}")]
+        public async Task<ActionResult<UserDto>> getUserById(string userId)
+        {
+            Console.WriteLine("Fetching user by ID: " + userId);
+            var user = await _userManager.Users
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null) return NotFound();
+
+            return new UserDto
+            {
+                DisplayName = user.DisplayName,
+                Image = null,
+                Token = "",
                 Username = user.UserName
             };
         }

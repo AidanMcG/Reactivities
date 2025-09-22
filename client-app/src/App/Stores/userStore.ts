@@ -6,6 +6,7 @@ import { store } from "./store";
 
 export default class UserStore {
     user: User | null = null;
+    selectedUser: User | null = null;
     loadingInitial = false;
     
     constructor() {
@@ -52,8 +53,8 @@ export default class UserStore {
     getUserByUsername = async (username: string) => {
         this.loadingInitial = true;
         try {
-            const user = await agent.Account.getUserByUsername(username);
-            runInAction(() => this.user = user);
+            const selectedUser = await agent.Account.getUserByUsername(username);
+            runInAction(() => this.selectedUser = selectedUser);
             this.setLoadingInitial(false);
         }
         catch (error) {
@@ -61,6 +62,17 @@ export default class UserStore {
             this.setLoadingInitial(false);
         }
     }
+
+    getUserDetailsById = async (userId: string) => {
+    try {
+        // Assuming you have an endpoint like '/users/{userId}' in your API
+        const friend = await agent.Account.getUserById(userId); 
+        return friend; // This object should contain properties like 'userName'
+    } catch (error) {
+        console.log(`Failed to fetch user with ID ${userId}:`, error);
+        return null;
+    }
+}
 
     register = async (creds: UserFormValues) => {
         try {

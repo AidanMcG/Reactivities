@@ -12,14 +12,14 @@ interface Props {
 
 export default observer(function ProfileCard() {
         const {userStore} = useStore();
-        const {getUserByUsername, user, loadingInitial} = userStore;
+        const {getUserByUsername, selectedUser, loadingInitial} = userStore;
         const {username} = useParams<{username: string}>();
 
     useEffect(() => {
         if (username) getUserByUsername(username);
     }, [username, getUserByUsername]);
 
-    if(loadingInitial || !user) return <LoadingComponent />
+    if(loadingInitial || !selectedUser) return <LoadingComponent />
 
     const panes = [
       {
@@ -49,7 +49,7 @@ export default observer(function ProfileCard() {
         <Card fluid>
           <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
           <Card.Content>
-            <Card.Header>{user?.username}</Card.Header>
+            <Card.Header>{selectedUser?.username}</Card.Header>
             <Card.Meta>
               <span className='date'>Joined in 2021</span>
             </Card.Meta>

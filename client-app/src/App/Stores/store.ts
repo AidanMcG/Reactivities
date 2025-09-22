@@ -4,6 +4,7 @@ import CommonStore from "./commonStore";
 import ModalStore from "./modalStore";
 import UserStore from "./userStore";
 import FootballActivityStore from "./ActivityStores/FootballActivityStore";
+import FriendshipStore from "./friendshipStore";
 
 interface Store {
     activityStore: ActivityStore;
@@ -11,6 +12,7 @@ interface Store {
     userStore: UserStore
     modalStore: ModalStore;
     footballActivityStore: FootballActivityStore;
+    friendshipStore: FriendshipStore;
 }
 
 export const store: Store = {
@@ -18,7 +20,8 @@ export const store: Store = {
     footballActivityStore: new FootballActivityStore(),
     commonStore: new CommonStore(),
     userStore: new UserStore(),
-    modalStore: new ModalStore()
+    modalStore: new ModalStore(),
+    friendshipStore: new FriendshipStore()
 }
 
 export const StoreContext = createContext(store);

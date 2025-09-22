@@ -5,6 +5,8 @@ import { Activity, ActivityFormValues } from '../models/activity';
 import { User, UserFormValues } from '../models/user';
 import { store } from '../Stores/store';
 import { FootballActivity, FootballActivityFormValues } from '../models/footballActivity';
+import { Friendship, FriendshipFormValues } from '../models/friendship';
+import { get } from 'http';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -84,17 +86,28 @@ const FootballActivities = {
     attend: (id: string) => requests.post<void>(`/footballactivities/${id}/attend`, {})
 }
 
+const Friendships = {
+    create: (friendship: FriendshipFormValues) => requests.post<void>('/friendship', friendship),
+    details: (userId: string, friendId: string) => requests.get<Friendship>(`/friendship/${userId}/${friendId}`),
+    update: (friendship: FriendshipFormValues) => requests.put<void>(`/friendship/${friendship.userName}`, friendship),
+    delete: (userName: string) => requests.del<void>(`/friendship/${userName}`),
+    list: () => requests.get<Friendship[]>('/friendship')
+}
+
+
 const Account = {
     current: () => requests.get<User>('/account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
     register: (user: UserFormValues) => requests.post<User>('/account/register', user),
-    getUserByUsername: (username: string) => requests.get<User>(`/account/${username}`)
+    getUserByUsername: (username: string) => requests.get<User>(`/account/${username}`),
+    getUserById: (userId: string) => requests.get<User>(`/account/id/${userId}`)
 }
 
 const agent = {
     Activities,
     FootballActivities,
-    Account
+    Account,
+    Friendships
 }
 
 export default agent;
