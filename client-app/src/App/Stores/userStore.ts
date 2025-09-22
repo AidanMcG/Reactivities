@@ -6,6 +6,8 @@ import { store } from "./store";
 
 export default class UserStore {
     user: User | null = null;
+    selectedUser: User | null = null;
+    loadingInitial = false;
     
     constructor() {
         makeAutoObservable(this)
@@ -36,14 +38,41 @@ export default class UserStore {
     }
 
     getUser = async () => {
+        this.loadingInitial = true;
         try {
             const user = await agent.Account.current();
             runInAction(() => this.user = user);
+            this.setLoadingInitial(false);
         }
         catch (error) {
             console.log(error);
+            this.setLoadingInitial(false);
         }
     }
+
+    getUserByUsername = async (username: string) => {
+        this.loadingInitial = true;
+        try {
+            const selectedUser = await agent.Account.getUserByUsername(username);
+            runInAction(() => this.selectedUser = selectedUser);
+            this.setLoadingInitial(false);
+        }
+        catch (error) {
+            console.log(error);
+            this.setLoadingInitial(false);
+        }
+    }
+
+    getUserDetailsById = async (userId: string) => {
+    try {
+        // Assuming you have an endpoint like '/users/{userId}' in your API
+        const friend = await agent.Account.getUserById(userId); 
+        return friend; // This object should contain properties like 'userName'
+    } catch (error) {
+        console.log(`Failed to fetch user with ID ${userId}:`, error);
+        return null;
+    }
+}
 
     register = async (creds: UserFormValues) => {
         try {
@@ -56,6 +85,10 @@ export default class UserStore {
         catch (error) {
             throw error;
         }
+    }
+
+    setLoadingInitial = (state: boolean) => {
+        this.loadingInitial = state;
     }
     
 }

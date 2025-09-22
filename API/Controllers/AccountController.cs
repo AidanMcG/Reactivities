@@ -83,15 +83,52 @@ namespace API.Controllers
             return CreateUserObject(user);
         }
 
+        [Authorize]
+        [HttpGet("{username}")]
+        public async Task<ActionResult<UserDto>> GetUserByUsername(string username)
+        {
+            var user = await _userManager.Users
+                .FirstOrDefaultAsync(x => x.UserName == username);
+
+            if (user == null) return NotFound();
+
+            return new UserDto
+            {
+                DisplayName = user.DisplayName,
+                Image = null,
+                Token = "",
+                Username = user.UserName
+            };
+        }
+
+        [Authorize]
+        [HttpGet("id/{userId}")]
+        public async Task<ActionResult<UserDto>> getUserById(string userId)
+        {
+            Console.WriteLine("Fetching user by ID: " + userId);
+            var user = await _userManager.Users
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null) return NotFound();
+
+            return new UserDto
+            {
+                DisplayName = user.DisplayName,
+                Image = null,
+                Token = "",
+                Username = user.UserName
+            };
+        }
+
         private UserDto CreateUserObject(AppUser user)
         {
             return new UserDto
-                {
-                    DisplayName = user.DisplayName,
-                    Image = null,
-                    Token = _tokenService.CreateToken(user),
-                    Username = user.UserName
-                };
+            {
+                DisplayName = user.DisplayName,
+                Image = null,
+                Token = _tokenService.CreateToken(user),
+                Username = user.UserName
+            };
         }
     }
 }

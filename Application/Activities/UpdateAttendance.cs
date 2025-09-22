@@ -50,17 +50,22 @@ namespace Application.Activities
                 if (attendance != null && HostUsername != user.UserName)
                     activity.Attendees.Remove(attendance);
 
-                if (attendance == null)
-                {
-                    attendance = new ActivityAttendee
-                    {
-                        AppUser = user,
-                        Activity = activity,
-                        IsHost = false
-                    };
 
-                    activity.Attendees.Add(attendance);
+                if (attendance == null && activity.Attendees.Count >= activity.NumberOfPlayers)
+                {
+                    return Result<Unit>.Failure("Maximum players in atttendance.");
                 }
+                if (attendance == null)
+                    {
+                        attendance = new ActivityAttendee
+                        {
+                            AppUser = user,
+                            Activity = activity,
+                            IsHost = false
+                        };
+
+                        activity.Attendees.Add(attendance);
+                    }
 
                 var result = await _context.SaveChangesAsync() > 0;
 

@@ -43,6 +43,16 @@ export default observer(function ActivityDetailedInfo({activity}: Props) {
                     </Grid.Column>
                 </Grid>
             </Segment>
+            <Segment attached>
+                <Grid verticalAlign='middle'>
+                    <Grid.Column width={1}>
+                        <Icon name='users' size='large' color='teal'/>
+                    </Grid.Column>
+                    <Grid.Column width={11}>
+                        <span>{activity.attendees.length.toString() + '/' + activity.numberOfPlayers.toString()}</span>
+                    </Grid.Column>
+                </Grid>
+            </Segment>
         </Segment.Group>
     )
 })

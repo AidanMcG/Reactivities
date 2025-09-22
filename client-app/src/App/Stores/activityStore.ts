@@ -67,6 +67,13 @@ export default class ActivityStore {
         }
     }
 
+    playerOptions = async(id: string) => {
+        let activity = this.getActivity(id);
+        if (activity){
+            return 1;
+        }
+    }
+
     private setActivity = (activity: Activity) => {
         const user = store.userStore.user;
         if (user){
@@ -146,9 +153,12 @@ export default class ActivityStore {
                     this.selectedActivity.attendees = this.selectedActivity.attendees?.filter(a => a.username !== user?.username);
                     this.selectedActivity.isGoing = false;
                 } else{
-                    const attendee = new Profile(user!);
-                    this.selectedActivity?.attendees?.push(attendee);
-                    this.selectedActivity!.isGoing = true;
+                    if(this.selectedActivity?.attendees && this.selectedActivity.attendees.length < this.selectedActivity?.numberOfPlayers)
+                    {
+                        const attendee = new Profile(user!);
+                        this.selectedActivity?.attendees?.push(attendee);
+                        this.selectedActivity!.isGoing = true;
+                    }
                 }
                 this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!)
             })

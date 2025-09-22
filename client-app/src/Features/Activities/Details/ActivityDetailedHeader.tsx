@@ -7,7 +7,7 @@ import { Activity } from '../../../App/models/activity';
 import { useStore } from '../../../App/Stores/store';
 
 const activityImageStyle = {
-    filter: 'brightness(30%)'
+    filter: 'brightness(80%)'
 };
 
 const activityImageTextStyle = {

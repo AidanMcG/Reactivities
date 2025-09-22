@@ -38,6 +38,9 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("NumberOfPlayers")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -140,6 +143,33 @@ namespace Persistence.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Friendship", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FriendId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("AcceptedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "FriendId");
+
+                    b.HasIndex("FriendId");
+
+                    b.ToTable("Friendships");
+
+                    b.HasCheckConstraint("CK_SelfFriendship", "[UserId] <> [FriendId]");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -270,6 +300,13 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.FootballActivity", b =>
+                {
+                    b.HasBaseType("Domain.Activity");
+
+                    b.ToTable("FootballActivities", (string)null);
+                });
+
             modelBuilder.Entity("Domain.ActivityAttendee", b =>
                 {
                     b.HasOne("Domain.Activity", "Activity")
@@ -287,6 +324,25 @@ namespace Persistence.Migrations
                     b.Navigation("Activity");
 
                     b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Domain.Friendship", b =>
+                {
+                    b.HasOne("Domain.AppUser", "Friend")
+                        .WithMany()
+                        .HasForeignKey("FriendId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.AppUser", "User")
+                        .WithMany("Friends")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Friend");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -340,6 +396,15 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.FootballActivity", b =>
+                {
+                    b.HasOne("Domain.Activity", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.FootballActivity", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Activity", b =>
                 {
                     b.Navigation("Attendees");
@@ -348,6 +413,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Navigation("Activities");
+
+                    b.Navigation("Friends");
                 });
 #pragma warning restore 612, 618
         }
