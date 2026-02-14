@@ -9,7 +9,10 @@ interface Props {
     attendees: Profile[];
 }
 
+
+    
 export default observer(function ActivityListItemAttendee({ attendees }:Props) {
+    
     return (
         <List horizontal>
             {

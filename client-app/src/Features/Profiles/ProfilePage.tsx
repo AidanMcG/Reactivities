@@ -14,10 +14,15 @@ export default observer(function ProfileCard() {
         const {userStore} = useStore();
         const {getUserByUsername, selectedUser, loadingInitial} = userStore;
         const {username} = useParams<{username: string}>();
+        const {friendshipStore: {friendshipRegistry, loadFriendships}} = useStore();
 
     useEffect(() => {
         if (username) getUserByUsername(username);
     }, [username, getUserByUsername]);
+
+    useEffect(() => {
+        loadFriendships();
+    }, [loadFriendships]);
 
     if(loadingInitial || !selectedUser) return <LoadingComponent />
 
@@ -66,9 +71,25 @@ export default observer(function ProfileCard() {
         </Card>
       </Grid.Column>
 
-      <Grid.Column width={12}>
+      <Grid.Column width={8}>
         <Header as='h2'>User Profile</Header>
         <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+      </Grid.Column>
+      <Grid.Column width={4}>
+        <Segment>
+          <Header as='h4' content='Friends'/>
+          {friendshipRegistry.map(friendship => (
+            <Card key={friendship.userName} as={Link} to={`/profile/${friendship.userName}`} style={{marginBottom: '10px'}}>
+              <Image src='/assets/user.png' wrapped ui={false} />
+              <Card.Content>
+                <Card.Header>{friendship.userName}</Card.Header>
+                <Card.Meta>
+                  <span className='date'>{friendship.status}</span>
+                </Card.Meta>  
+              </Card.Content>
+            </Card>
+          ))}
+        </Segment>
       </Grid.Column>
     </Grid>
   </Container>

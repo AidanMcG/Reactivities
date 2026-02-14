@@ -27,6 +27,7 @@ export default class FriendshipStore {
         try {
             console.log("Loading friendships...");
             const friendships = await agent.Friendships.list();
+            this.friendshipRegistry = [];
             friendships.forEach(friendship => {
                 this.friendshipRegistry.push(friendship);
                 console.log("Thats a friendship: " + friendship.userName);
@@ -62,6 +63,7 @@ export default class FriendshipStore {
         this.loadingInitial = true;
         try {
             const friendships = await agent.Friendships.list();
+            this.friendshipRegistry = [];
             friendships.forEach(friendship => {
                 this.friendshipRegistry.push(friendship);
             });
