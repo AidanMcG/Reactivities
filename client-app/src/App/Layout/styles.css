@@ -1,3 +1,12 @@
+/* App colour scheme */
+:root {
+  --primary: #4CAF50;       /* Primary background, pitch-themed cards */
+  --accent: #8BC34A;        /* Buttons, event timers */
+  --highlight: #FFEB3B;     /* Scores, leaderboards */
+  --alerts: #FF9800;        /* Notifications, goals */
+  --text-base: #F5F5F5;    /* High contrast on green */
+}
+
 /*
  * Sets the body and html to 100% height to allow the .masthead container to fill the viewport.
  * This is a foundational step for full-screen layouts.
@@ -9,11 +18,34 @@ html, body, #root {
 }
 
 body {
-  background-color: #EAEAEA !important;
+  background-color: #e8f5e9 !important;  /* Light green tint */
 }
 
 .ui.inverted.top.fixed.menu {
-  background-image: linear-gradient(135deg,rgb(187, 165, 103) 0%, rgba(255, 225, 179, 0.623) 89%) !important;
+  background: var(--primary) !important;
+  color: var(--text-base) !important;
+}
+
+.ui.inverted.menu .item,
+.ui.inverted.menu .item > a {
+  color: var(--text-base) !important;
+}
+
+.ui.inverted.menu .item:hover,
+.ui.inverted.menu .item > a:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: var(--text-base) !important;
+}
+
+.ui.positive.button,
+.ui.inverted.menu .ui.positive.button {
+  background: var(--accent) !important;
+  color: #1b5e20 !important;
+}
+
+.ui.positive.button:hover {
+  background: #9ccc65 !important;
+  color: #1b5e20 !important;
 }
 
 .react-calendar {
@@ -121,25 +153,27 @@ body {
 
 /* Style for today's date */
 .react-calendar__tile--now {
-  background-color: #a3d9ff;
+  background-color: var(--highlight);
+  color: #1b5e20;
   font-weight: bold;
 }
 
 /* Style for selected dates */
 .react-calendar__tile--active {
-  background-color: #007bff;
-  color: #ffffff;
+  background-color: var(--accent) !important;
+  color: #1b5e20 !important;
   font-weight: bold;
 }
 
 /* Hover effect on active tiles */
 .react-calendar__tile--active:enabled:hover {
-  background-color: #0056b3;
+  background-color: #9ccc65 !important;
+  color: #1b5e20 !important;
 }
 
 /* Style for dates in a date range selection */
 .react-calendar__tile--range {
-  background-color: #b3d4f8;
+  background-color: rgba(139, 195, 74, 0.3);
   color: #000000;
   border-radius: 0;
 }
@@ -147,8 +181,8 @@ body {
 /* Make selected start and end dates more prominent in a range */
 .react-calendar__tile--range.react-calendar__tile--active {
   border-radius: 50%;
-  background-color: #007bff;
-  color: #ffffff;
+  background-color: var(--accent) !important;
+  color: #1b5e20 !important;
 }
 
 /* Style for dates from adjacent months */
@@ -169,7 +203,7 @@ body {
 
 .react-calendar__tile--hasActive,
 .react-calendar__tile--hasActive:enabled:hover {
-  background: #c7e0f8;
+  background: rgba(139, 195, 74, 0.25);
 }
 
 /* Make tiles in other views look like buttons */
@@ -206,21 +240,106 @@ body {
   background-color: transparent !important;
 }*/
 
-/*home page styles*/
+/* Home page styles */
 .masthead {
-  /* This ensures the container fills the entire viewport height. */
   min-height: 100vh;
-  /* This centers the content vertically and horizontally within the container. */
+  width: 100%;
+  max-width: none !important;
+  margin: 0 !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(
     135deg,
-    rgb(71, 89, 252) 0%,
-    rgba(112, 253, 148, 0.808) 69%,
-    rgb(163, 158, 153) 89%
+    #2e7d32 0%,
+    #388e3c 35%,
+    #4CAF50 65%,
+    #66bb6a 85%,
+    #81c784 100%
   ) !important;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.masthead-content {
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.masthead-content .ui.header {
+  text-align: center;
+}
+
+.masthead-logo {
+  display: block !important;
+  margin: 0 auto 1.5rem !important;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+  transition: transform 0.25s ease;
+}
+
+.masthead-logo:hover {
+  transform: scale(1.03);
+}
+
+.masthead-title {
+  color: var(--text-base) !important;
+  font-size: 2.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.masthead-tagline {
+  color: var(--text-base) !important;
+  opacity: 0.95;
+  font-size: 1.25rem !important;
+  font-weight: 400 !important;
+  margin-bottom: 2.5rem !important;
+  line-height: 1.45;
+}
+
+.masthead-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.masthead-cta-primary {
+  background: var(--accent) !important;
+  color: #1b5e20 !important;
+  padding: 1rem 2rem !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.masthead-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+  background: #9ccc65 !important;
+  color: #1b5e20 !important;
+}
+
+.masthead-cta-secondary {
+  background: rgba(245, 245, 245, 0.2) !important;
+  color: var(--text-base) !important;
+  border: 2px solid rgba(245, 245, 245, 0.8) !important;
+  padding: 1rem 2rem !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+}
+
+.masthead-cta-secondary:hover {
+  background: rgba(245, 245, 245, 0.3) !important;
+  border-color: var(--text-base) !important;
+  color: var(--text-base) !important;
+  transform: translateY(-2px);
 }
 
 .masthead .ui.menu .ui.button,
@@ -238,11 +357,113 @@ body {
   font-weight: normal;
 }
 
-/*
- * This class is no longer needed because the new flexbox rules handle centering.
- * It's kept here just to show it's no longer necessary.
-*/
-.home.page.logo {
-  display: inline-block;
-  /* justify-content: center !important; */
+/* Activity dashboard */
+.activity-dashboard {
+  padding-bottom: 2rem;
+}
+
+.activity-dashboard-title {
+  color: var(--primary) !important;
+  font-size: 1.85rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.25rem !important;
+  letter-spacing: -0.02em;
+}
+
+.activity-dashboard-subtitle {
+  color: #558b2f;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+
+.activity-dashboard-list {
+  min-width: 0;
+}
+
+.activity-dashboard-filters {
+  background: #fff !important;
+  border-radius: 10px !important;
+  border-left: 4px solid var(--accent) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  padding: 1.25rem !important;
+  position: sticky;
+  top: 6rem;
+}
+
+.activity-dashboard-filters .ui.vertical.menu {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.activity-dashboard-filters .react-calendar {
+  margin-top: 1rem;
+}
+
+/* Semantic UI overrides – map to app colour scheme */
+.ui.teal.button,
+.ui.teal.buttons .button {
+  background: var(--accent) !important;
+  color: #1b5e20 !important;
+}
+
+.ui.teal.button:hover {
+  background: #9ccc65 !important;
+  color: #1b5e20 !important;
+}
+
+.ui.header.sub.teal,
+.ui.teal.header {
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.ui.orange.button,
+.ui.orange.buttons .button,
+.ui.label.orange,
+.ui.basic.orange.label {
+  background: var(--alerts) !important;
+  border-color: var(--alerts) !important;
+  color: #fff !important;
+}
+
+.ui.orange.button:hover {
+  background: #fb8c00 !important;
+  color: #fff !important;
+}
+
+.ui.green.button,
+.ui.green.buttons .button,
+.ui.basic.green.label {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #1b5e20 !important;
+}
+
+.ui.icon.teal,
+.ui.teal.icons .icon {
+  color: var(--primary) !important;
+}
+
+.activity-dashboard-filters .ui.attached.header.teal {
+  background: var(--primary) !important;
+  color: var(--text-base) !important;
+  border-color: var(--primary) !important;
+}
+
+/* Pitch-themed cards: activity list item segments */
+.activity-dashboard-list .ui.segments > .ui.segment:first-child {
+  border-left: 3px solid var(--primary);
+}
+
+/* Modal / form headers (Login, Register, etc.) */
+.ui.modal > .header.teal,
+.ui.modal .ui.teal.header {
+  background: var(--primary) !important;
+  color: var(--text-base) !important;
+}
+
+/* Profile / friends segments on light background */
+.ui.card .content.extra a {
+  color: var(--primary) !important;
 }

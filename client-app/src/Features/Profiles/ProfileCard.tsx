@@ -14,9 +14,9 @@ export default observer(function ProfileCard({profile}: Props) {
     const {friendshipStore: {createFriendship, friendshipRegistry, loadFriendships, loadingInitial, selectedFriendship, deleteFriendship}} = useStore();
     const {userStore: {user}} = useStore();
 
-    useEffect(() => {
+    /*useEffect(() => {
         loadFriendships();
-    },[friendshipRegistry]);
+    },[friendshipRegistry]);*/
     
     if (loadingInitial) return <LoadingComponent content='Loading activity...'/>
     return (
