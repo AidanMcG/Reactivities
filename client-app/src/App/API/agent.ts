@@ -6,6 +6,7 @@ import { User, UserFormValues } from '../models/user';
 import { store } from '../Stores/store';
 import { FootballActivity, FootballActivityFormValues } from '../models/footballActivity';
 import { Friendship, FriendshipFormValues } from '../models/friendship';
+import { ServerError } from '../models/serverError';
 import { get } from 'http';
 
 const sleep = (delay: number) => {
@@ -22,24 +23,29 @@ axios.interceptors.request.use(config => {
     return config;
 })
 
+interface ErrorResponseData {
+    errors?: Record<string, string[]>;
+}
+
 axios.interceptors.response.use(async response =>  {
         await sleep(1000);
         return response;
 }, (error: AxiosError) => {
-    const {data, status, config} = error.response!;
+    const { data, status, config } = error.response ?? {};
+    const errData = data as ErrorResponseData | string | undefined;
     switch (status) {
         case 400:
-            if (typeof data === 'string') {
-                toast.error(data);
+            if (typeof errData === 'string') {
+                toast.error(errData);
             }
-            if (config.method === 'get' && data.errors.hasOwnProperty('id')){
+            if (config?.method === 'get' && typeof errData === 'object' && errData?.errors?.hasOwnProperty?.('id')) {
                 history.push('/not-found');
             }
-            if (data.errors) {
+            if (typeof errData === 'object' && errData?.errors) {
                 const modalStateErrors = [];
-                for (const key in data.errors){
-                    if (data.errors[key]){
-                        modalStateErrors.push(data.errors[key])
+                for (const key in errData.errors) {
+                    if (errData.errors[key]) {
+                        modalStateErrors.push(errData.errors[key]);
                     }
                 }
                 throw modalStateErrors.flat();
@@ -51,10 +57,15 @@ axios.interceptors.response.use(async response =>  {
         case 404:
             history.push('/not-found');
             break;
-        case 500:
-            store.commonStore.setServerError(data);
+        case 500: {
+            const serverError: ServerError =
+                typeof errData === 'object' && errData && 'message' in errData
+                    ? (errData as ServerError)
+                    : { statusCode: 500, message: 'Server error', details: String(errData ?? '') };
+            store.commonStore.setServerError(serverError);
             history.push('/server-error');
             break;
+        }
     }
     return Promise.reject(error);
 })
